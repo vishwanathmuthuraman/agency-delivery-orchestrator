@@ -1,0 +1,3 @@
+# Documentation tooling only; no application dependencies are installed or implied.
+jsonschema==4.26.0
+Markdown==3.10.3

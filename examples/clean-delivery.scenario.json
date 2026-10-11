@@ -1,0 +1,476 @@
+{
+  "schema_version": "1.0",
+  "scenario_id": "clean-delivery",
+  "description": "Original synthetic baseline delivery: approved brief through mock delivery, acceptance and billing-readiness.",
+  "initial_campaign": {
+    "tenant_id": "tenant-synthetic-a",
+    "campaign_id": "campaign-demo",
+    "currency": "INR",
+    "budget_minor": 12000000,
+    "scope_version": 1,
+    "scope_approved": false,
+    "cost_rates": [
+      {
+        "role": "editor",
+        "version": 1,
+        "minor_per_hour": 100000
+      }
+    ],
+    "source_facts": [
+      {
+        "fact_id": "battery-life",
+        "version": 1,
+        "value": "Battery lasts 12 hours.",
+        "source_ref": "synthetic://approved-brief/v1"
+      }
+    ],
+    "deliverables": [
+      {
+        "deliverable_id": "d-caption",
+        "version": 1,
+        "kind": "caption",
+        "content": "Battery lasts 12 hours.",
+        "fact_refs": [
+          {
+            "fact_id": "battery-life",
+            "fact_version": 1
+          }
+        ],
+        "status": "draft",
+        "destination": "mock://social/caption"
+      },
+      {
+        "deliverable_id": "d-video",
+        "version": 1,
+        "kind": "video_edit_packet",
+        "content": "At 00:04 narrator says: Battery lasts 12 hours.",
+        "fact_refs": [
+          {
+            "fact_id": "battery-life",
+            "fact_version": 1
+          }
+        ],
+        "status": "draft",
+        "destination": "mock://review/video"
+      },
+      {
+        "deliverable_id": "d-evergreen",
+        "version": 1,
+        "kind": "caption",
+        "content": "Meet the people behind our product.",
+        "fact_refs": [],
+        "status": "draft",
+        "destination": "mock://social/evergreen"
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "t-caption",
+        "deliverable_id": "d-caption",
+        "owner_role": "editor",
+        "estimated_minutes": 30,
+        "rate_version": 1,
+        "estimated_cost_minor": 50000,
+        "depends_on": [],
+        "status": "ready"
+      },
+      {
+        "task_id": "t-video",
+        "deliverable_id": "d-video",
+        "owner_role": "editor",
+        "estimated_minutes": 120,
+        "rate_version": 1,
+        "estimated_cost_minor": 200000,
+        "depends_on": [],
+        "status": "ready"
+      },
+      {
+        "task_id": "t-evergreen",
+        "deliverable_id": "d-evergreen",
+        "owner_role": "editor",
+        "estimated_minutes": 30,
+        "rate_version": 1,
+        "estimated_cost_minor": 50000,
+        "depends_on": [],
+        "status": "ready"
+      }
+    ],
+    "authority_map": [
+      {
+        "role": "account_owner",
+        "allowed_event_kinds": [
+          "brief_approved",
+          "commercial_decision_recorded",
+          "source_revision_committed"
+        ],
+        "allowed_approval_purposes": [
+          "scope",
+          "commercial"
+        ]
+      },
+      {
+        "role": "agent",
+        "allowed_event_kinds": [
+          "artifact_revision_prepared",
+          "dispatch_requested",
+          "tenant_reference_requested",
+          "closure_requested"
+        ],
+        "allowed_approval_purposes": []
+      },
+      {
+        "role": "client_approver",
+        "allowed_event_kinds": [
+          "approval_granted",
+          "client_change_received",
+          "acceptance_recorded"
+        ],
+        "allowed_approval_purposes": [
+          "content",
+          "dispatch"
+        ]
+      },
+      {
+        "role": "connector",
+        "allowed_event_kinds": [
+          "connector_observed",
+          "reconciliation_observed"
+        ],
+        "allowed_approval_purposes": []
+      },
+      {
+        "role": "editor",
+        "allowed_event_kinds": [
+          "work_completed"
+        ],
+        "allowed_approval_purposes": []
+      },
+      {
+        "role": "production_lead",
+        "allowed_event_kinds": [
+          "impact_reviewed"
+        ],
+        "allowed_approval_purposes": []
+      }
+    ],
+    "approvals": []
+  },
+  "events": [
+    {
+      "event_id": "e-001",
+      "actor_role": "account_owner",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:01Z",
+      "kind": "brief_approved",
+      "payload": {
+        "scope_version": 1,
+        "approver_role": "account_owner"
+      }
+    },
+    {
+      "event_id": "e-002",
+      "actor_role": "editor",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:02Z",
+      "kind": "work_completed",
+      "payload": {
+        "task_id": "t-caption",
+        "deliverable_id": "d-caption",
+        "deliverable_version": 1
+      }
+    },
+    {
+      "event_id": "e-003",
+      "actor_role": "client_approver",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:03Z",
+      "kind": "approval_granted",
+      "payload": {
+        "approval_id": "a-content-caption",
+        "purpose": "content",
+        "subject_id": "d-caption",
+        "subject_version": 1,
+        "fact_refs": [
+          {
+            "fact_id": "battery-life",
+            "fact_version": 1
+          }
+        ],
+        "approved_by_role": "client_approver",
+        "approved_at": "2026-01-02T00:00:03Z",
+        "valid": true
+      }
+    },
+    {
+      "event_id": "e-004",
+      "actor_role": "client_approver",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:04Z",
+      "kind": "approval_granted",
+      "payload": {
+        "approval_id": "a-caption",
+        "purpose": "dispatch",
+        "subject_id": "d-caption",
+        "subject_version": 1,
+        "fact_refs": [
+          {
+            "fact_id": "battery-life",
+            "fact_version": 1
+          }
+        ],
+        "approved_by_role": "client_approver",
+        "approved_at": "2026-01-02T00:00:04Z",
+        "valid": true
+      }
+    },
+    {
+      "event_id": "e-005",
+      "actor_role": "agent",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:05Z",
+      "kind": "dispatch_requested",
+      "payload": {
+        "action_id": "act-caption",
+        "deliverable_id": "d-caption",
+        "expected_artifact_version": 1,
+        "approval_id": "a-caption",
+        "idempotency_key": "key-caption"
+      }
+    },
+    {
+      "event_id": "e-006",
+      "actor_role": "connector",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:06Z",
+      "kind": "connector_observed",
+      "payload": {
+        "action_id": "act-caption",
+        "outcome": "success",
+        "observed_version": 1,
+        "external_ref": "mock-object-caption"
+      }
+    },
+    {
+      "event_id": "e-007",
+      "actor_role": "client_approver",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:07Z",
+      "kind": "acceptance_recorded",
+      "payload": {
+        "deliverable_id": "d-caption",
+        "deliverable_version": 1,
+        "approver_role": "client_approver"
+      }
+    },
+    {
+      "event_id": "e-008",
+      "actor_role": "editor",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:08Z",
+      "kind": "work_completed",
+      "payload": {
+        "task_id": "t-video",
+        "deliverable_id": "d-video",
+        "deliverable_version": 1
+      }
+    },
+    {
+      "event_id": "e-009",
+      "actor_role": "client_approver",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:09Z",
+      "kind": "approval_granted",
+      "payload": {
+        "approval_id": "a-content-video",
+        "purpose": "content",
+        "subject_id": "d-video",
+        "subject_version": 1,
+        "fact_refs": [
+          {
+            "fact_id": "battery-life",
+            "fact_version": 1
+          }
+        ],
+        "approved_by_role": "client_approver",
+        "approved_at": "2026-01-02T00:00:09Z",
+        "valid": true
+      }
+    },
+    {
+      "event_id": "e-010",
+      "actor_role": "client_approver",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:10Z",
+      "kind": "approval_granted",
+      "payload": {
+        "approval_id": "a-video",
+        "purpose": "dispatch",
+        "subject_id": "d-video",
+        "subject_version": 1,
+        "fact_refs": [
+          {
+            "fact_id": "battery-life",
+            "fact_version": 1
+          }
+        ],
+        "approved_by_role": "client_approver",
+        "approved_at": "2026-01-02T00:00:10Z",
+        "valid": true
+      }
+    },
+    {
+      "event_id": "e-011",
+      "actor_role": "agent",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:11Z",
+      "kind": "dispatch_requested",
+      "payload": {
+        "action_id": "act-video",
+        "deliverable_id": "d-video",
+        "expected_artifact_version": 1,
+        "approval_id": "a-video",
+        "idempotency_key": "key-video"
+      }
+    },
+    {
+      "event_id": "e-012",
+      "actor_role": "connector",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:12Z",
+      "kind": "connector_observed",
+      "payload": {
+        "action_id": "act-video",
+        "outcome": "success",
+        "observed_version": 1,
+        "external_ref": "mock-object-video"
+      }
+    },
+    {
+      "event_id": "e-013",
+      "actor_role": "client_approver",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:13Z",
+      "kind": "acceptance_recorded",
+      "payload": {
+        "deliverable_id": "d-video",
+        "deliverable_version": 1,
+        "approver_role": "client_approver"
+      }
+    },
+    {
+      "event_id": "e-014",
+      "actor_role": "editor",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:14Z",
+      "kind": "work_completed",
+      "payload": {
+        "task_id": "t-evergreen",
+        "deliverable_id": "d-evergreen",
+        "deliverable_version": 1
+      }
+    },
+    {
+      "event_id": "e-015",
+      "actor_role": "client_approver",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:15Z",
+      "kind": "approval_granted",
+      "payload": {
+        "approval_id": "a-content-evergreen",
+        "purpose": "content",
+        "subject_id": "d-evergreen",
+        "subject_version": 1,
+        "fact_refs": [],
+        "approved_by_role": "client_approver",
+        "approved_at": "2026-01-02T00:00:15Z",
+        "valid": true
+      }
+    },
+    {
+      "event_id": "e-016",
+      "actor_role": "client_approver",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:16Z",
+      "kind": "approval_granted",
+      "payload": {
+        "approval_id": "a-evergreen",
+        "purpose": "dispatch",
+        "subject_id": "d-evergreen",
+        "subject_version": 1,
+        "fact_refs": [],
+        "approved_by_role": "client_approver",
+        "approved_at": "2026-01-02T00:00:16Z",
+        "valid": true
+      }
+    },
+    {
+      "event_id": "e-017",
+      "actor_role": "agent",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:17Z",
+      "kind": "dispatch_requested",
+      "payload": {
+        "action_id": "act-evergreen",
+        "deliverable_id": "d-evergreen",
+        "expected_artifact_version": 1,
+        "approval_id": "a-evergreen",
+        "idempotency_key": "key-evergreen"
+      }
+    },
+    {
+      "event_id": "e-018",
+      "actor_role": "connector",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:18Z",
+      "kind": "connector_observed",
+      "payload": {
+        "action_id": "act-evergreen",
+        "outcome": "success",
+        "observed_version": 1,
+        "external_ref": "mock-object-evergreen"
+      }
+    },
+    {
+      "event_id": "e-019",
+      "actor_role": "client_approver",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:19Z",
+      "kind": "acceptance_recorded",
+      "payload": {
+        "deliverable_id": "d-evergreen",
+        "deliverable_version": 1,
+        "approver_role": "client_approver"
+      }
+    },
+    {
+      "event_id": "e-020",
+      "actor_role": "agent",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:20Z",
+      "kind": "closure_requested",
+      "payload": {
+        "request_id": "close-clean"
+      }
+    }
+  ]
+}

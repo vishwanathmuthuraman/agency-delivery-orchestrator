@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "result_kind": "specification_not_execution",
+  "scenario_id": "client-claim-change",
+  "expected_terminal_state": "review_required",
+  "expected_affected_deliverable_ids": [
+    "d-caption",
+    "d-video"
+  ],
+  "expected_invalidated_approval_ids": [
+    "a-caption",
+    "a-video",
+    "a-content-caption",
+    "a-content-video"
+  ],
+  "expected_external_write_count": 0,
+  "expected_outcome_codes": [
+    "impact_confirmed",
+    "commercial_decision_recorded",
+    "dependent_approvals_invalidated",
+    "caption_draft_prepared",
+    "human_video_edit_required"
+  ],
+  "expected_billing_ready": false,
+  "must_not_happen": [
+    "dispatch_without_fresh_approval",
+    "automatic_video_rerender",
+    "real_client_message"
+  ],
+  "selective_only_must_not_happen": [
+    "unrelated_asset_invalidated"
+  ],
+  "explanation": "The corrected caption is a draft. A video edit packet is required, and both affected deliverables require review. No connector write is permitted. The evergreen deliverable remains valid under the selective reference policy."
+}

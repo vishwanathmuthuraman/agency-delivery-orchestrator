@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "result_kind": "specification_not_execution",
+  "scenario_id": "cross-client-reference",
+  "expected_terminal_state": "blocked",
+  "expected_affected_deliverable_ids": [],
+  "expected_invalidated_approval_ids": [],
+  "expected_external_write_count": 0,
+  "expected_outcome_codes": [
+    "cross_tenant_access_denied"
+  ],
+  "expected_billing_ready": false,
+  "must_not_happen": [
+    "other_tenant_data_returned",
+    "external_write"
+  ],
+  "selective_only_must_not_happen": [],
+  "explanation": "Authorization denies the reference before retrieval. A tenant identifier in content or a request does not grant authority."
+}

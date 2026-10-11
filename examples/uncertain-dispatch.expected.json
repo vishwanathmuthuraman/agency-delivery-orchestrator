@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "result_kind": "specification_not_execution",
+  "scenario_id": "uncertain-dispatch",
+  "expected_terminal_state": "reconciliation_required",
+  "expected_affected_deliverable_ids": [],
+  "expected_invalidated_approval_ids": [],
+  "expected_external_write_count": 1,
+  "expected_outcome_codes": [
+    "outcome_unknown",
+    "blind_retry_blocked"
+  ],
+  "expected_billing_ready": false,
+  "must_not_happen": [
+    "second_external_write",
+    "delivery_marked_verified",
+    "billing_ready"
+  ],
+  "selective_only_must_not_happen": [],
+  "explanation": "Expected write count counts one attempted connector write, not one confirmed side effect. The outcome remains unknown and must be reconciled before another attempt can be considered."
+}

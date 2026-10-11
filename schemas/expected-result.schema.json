@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Expected Result",
+  "description": "Blueprint contract; not evidence of application behavior. See examples/README.md for fixture semantics.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "result_kind": {
+      "const": "specification_not_execution"
+    },
+    "scenario_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_terminal_state": {
+      "enum": [
+        "complete",
+        "review_required",
+        "blocked",
+        "reconciliation_required"
+      ]
+    },
+    "expected_affected_deliverable_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "expected_invalidated_approval_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "expected_external_write_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "expected_outcome_codes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "expected_billing_ready": {
+      "type": "boolean"
+    },
+    "must_not_happen": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "selective_only_must_not_happen": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "explanation": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "result_kind",
+    "scenario_id",
+    "expected_terminal_state",
+    "expected_affected_deliverable_ids",
+    "expected_invalidated_approval_ids",
+    "expected_external_write_count",
+    "expected_outcome_codes",
+    "expected_billing_ready",
+    "must_not_happen",
+    "selective_only_must_not_happen",
+    "explanation"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "result_kind": "specification_not_execution",
+  "scenario_id": "stale-approval",
+  "expected_terminal_state": "blocked",
+  "expected_affected_deliverable_ids": [
+    "d-caption",
+    "d-video"
+  ],
+  "expected_invalidated_approval_ids": [
+    "a-caption",
+    "a-video",
+    "a-content-caption",
+    "a-content-video"
+  ],
+  "expected_external_write_count": 0,
+  "expected_outcome_codes": [
+    "stale_approval_blocked"
+  ],
+  "expected_billing_ready": false,
+  "must_not_happen": [
+    "external_write",
+    "billing_ready"
+  ],
+  "selective_only_must_not_happen": [],
+  "explanation": "The final shared guard rejects the old source binding even if a policy missed early invalidation. Blocked applies to the attempted operation; the campaign remains open."
+}

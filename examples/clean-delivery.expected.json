@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "result_kind": "specification_not_execution",
+  "scenario_id": "clean-delivery",
+  "expected_terminal_state": "complete",
+  "expected_affected_deliverable_ids": [],
+  "expected_invalidated_approval_ids": [],
+  "expected_external_write_count": 3,
+  "expected_outcome_codes": [
+    "scope_approved",
+    "delivery_verified",
+    "acceptance_recorded",
+    "billing_ready"
+  ],
+  "expected_billing_ready": true,
+  "must_not_happen": [
+    "real_publication",
+    "real_invoice_issued"
+  ],
+  "selective_only_must_not_happen": [],
+  "explanation": "Three supported mock outputs are observed and accepted at current versions. Billing readiness is a structured export, not an issued invoice or recognized revenue."
+}

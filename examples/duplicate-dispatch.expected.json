@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "result_kind": "specification_not_execution",
+  "scenario_id": "duplicate-dispatch",
+  "expected_terminal_state": "review_required",
+  "expected_affected_deliverable_ids": [],
+  "expected_invalidated_approval_ids": [],
+  "expected_external_write_count": 1,
+  "expected_outcome_codes": [
+    "delivery_verified",
+    "duplicate_intent_reused"
+  ],
+  "expected_billing_ready": false,
+  "must_not_happen": [
+    "second_external_write",
+    "campaign_closed"
+  ],
+  "selective_only_must_not_happen": [],
+  "explanation": "The connector produces one object for the caption. The other deliverables still need delivery and acceptance, so the whole campaign is not complete."
+}

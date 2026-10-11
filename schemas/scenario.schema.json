@@ -1,0 +1,1478 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Scenario",
+  "description": "Blueprint contract; not evidence of application behavior. See examples/README.md for fixture semantics.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "scenario_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "initial_campaign": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "campaign_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "budget_minor": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scope_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "scope_approved": {
+          "type": "boolean"
+        },
+        "cost_rates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "role": {
+                "type": "string",
+                "minLength": 1
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "minor_per_hour": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "role",
+              "version",
+              "minor_per_hour"
+            ]
+          }
+        },
+        "source_facts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "fact_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source_ref": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "fact_id",
+              "version",
+              "value",
+              "source_ref"
+            ]
+          }
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "deliverable_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "kind": {
+                "enum": [
+                  "caption",
+                  "video_edit_packet",
+                  "graphic_edit_packet"
+                ]
+              },
+              "content": {
+                "type": "string",
+                "minLength": 1
+              },
+              "fact_refs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "fact_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fact_version": {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  },
+                  "required": [
+                    "fact_id",
+                    "fact_version"
+                  ]
+                }
+              },
+              "status": {
+                "enum": [
+                  "draft",
+                  "in_review",
+                  "approved",
+                  "scheduled",
+                  "verified"
+                ]
+              },
+              "destination": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "deliverable_id",
+              "version",
+              "kind",
+              "content",
+              "fact_refs",
+              "status",
+              "destination"
+            ]
+          }
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "deliverable_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "owner_role": {
+                "type": "string",
+                "minLength": 1
+              },
+              "estimated_minutes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "rate_version": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "estimated_cost_minor": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "depends_on": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "status": {
+                "enum": [
+                  "ready",
+                  "blocked",
+                  "in_progress",
+                  "complete"
+                ]
+              }
+            },
+            "required": [
+              "task_id",
+              "deliverable_id",
+              "owner_role",
+              "estimated_minutes",
+              "rate_version",
+              "estimated_cost_minor",
+              "depends_on",
+              "status"
+            ]
+          }
+        },
+        "approvals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "approval_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "purpose": {
+                "enum": [
+                  "scope",
+                  "content",
+                  "commercial",
+                  "dispatch"
+                ]
+              },
+              "subject_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "subject_version": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "fact_refs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "fact_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fact_version": {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  },
+                  "required": [
+                    "fact_id",
+                    "fact_version"
+                  ]
+                }
+              },
+              "approved_by_role": {
+                "type": "string",
+                "minLength": 1
+              },
+              "approved_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "valid": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "approval_id",
+              "purpose",
+              "subject_id",
+              "subject_version",
+              "fact_refs",
+              "approved_by_role",
+              "approved_at",
+              "valid"
+            ]
+          }
+        },
+        "authority_map": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "role": {
+                "type": "string",
+                "minLength": 1
+              },
+              "allowed_event_kinds": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "brief_approved",
+                    "work_completed",
+                    "approval_granted",
+                    "client_change_received",
+                    "impact_reviewed",
+                    "commercial_decision_recorded",
+                    "source_revision_committed",
+                    "artifact_revision_prepared",
+                    "dispatch_requested",
+                    "connector_observed",
+                    "reconciliation_observed",
+                    "tenant_reference_requested",
+                    "acceptance_recorded",
+                    "closure_requested"
+                  ]
+                }
+              },
+              "allowed_approval_purposes": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "scope",
+                    "content",
+                    "commercial",
+                    "dispatch"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "role",
+              "allowed_event_kinds",
+              "allowed_approval_purposes"
+            ]
+          }
+        }
+      },
+      "required": [
+        "tenant_id",
+        "campaign_id",
+        "currency",
+        "budget_minor",
+        "scope_version",
+        "scope_approved",
+        "cost_rates",
+        "source_facts",
+        "deliverables",
+        "tasks",
+        "approvals",
+        "authority_map"
+      ]
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_role": {
+                "enum": [
+                  "account_owner",
+                  "agent",
+                  "client_approver",
+                  "connector",
+                  "editor",
+                  "production_lead"
+                ]
+              },
+              "tenant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "campaign_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "kind": {
+                "const": "brief_approved"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "scope_version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "approver_role": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "scope_version",
+                  "approver_role"
+                ]
+              }
+            },
+            "required": [
+              "event_id",
+              "actor_role",
+              "tenant_id",
+              "campaign_id",
+              "at",
+              "kind",
+              "payload"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_role": {
+                "enum": [
+                  "account_owner",
+                  "agent",
+                  "client_approver",
+                  "connector",
+                  "editor",
+                  "production_lead"
+                ]
+              },
+              "tenant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "campaign_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "kind": {
+                "const": "work_completed"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "task_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "deliverable_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "deliverable_version": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                },
+                "required": [
+                  "task_id",
+                  "deliverable_id",
+                  "deliverable_version"
+                ]
+              }
+            },
+            "required": [
+              "event_id",
+              "actor_role",
+              "tenant_id",
+              "campaign_id",
+              "at",
+              "kind",
+              "payload"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_role": {
+                "enum": [
+                  "account_owner",
+                  "agent",
+                  "client_approver",
+                  "connector",
+                  "editor",
+                  "production_lead"
+                ]
+              },
+              "tenant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "campaign_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "kind": {
+                "const": "approval_granted"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "approval_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "purpose": {
+                    "enum": [
+                      "scope",
+                      "content",
+                      "commercial",
+                      "dispatch"
+                    ]
+                  },
+                  "subject_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "subject_version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "fact_refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "fact_id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "fact_version": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      },
+                      "required": [
+                        "fact_id",
+                        "fact_version"
+                      ]
+                    }
+                  },
+                  "approved_by_role": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "approved_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "valid": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "approval_id",
+                  "purpose",
+                  "subject_id",
+                  "subject_version",
+                  "fact_refs",
+                  "approved_by_role",
+                  "approved_at",
+                  "valid"
+                ]
+              }
+            },
+            "required": [
+              "event_id",
+              "actor_role",
+              "tenant_id",
+              "campaign_id",
+              "at",
+              "kind",
+              "payload"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_role": {
+                "enum": [
+                  "account_owner",
+                  "agent",
+                  "client_approver",
+                  "connector",
+                  "editor",
+                  "production_lead"
+                ]
+              },
+              "tenant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "campaign_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "kind": {
+                "const": "client_change_received"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "request_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "fact_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "expected_fact_version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "new_value": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "request_id",
+                  "fact_id",
+                  "expected_fact_version",
+                  "new_value"
+                ]
+              }
+            },
+            "required": [
+              "event_id",
+              "actor_role",
+              "tenant_id",
+              "campaign_id",
+              "at",
+              "kind",
+              "payload"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_role": {
+                "enum": [
+                  "account_owner",
+                  "agent",
+                  "client_approver",
+                  "connector",
+                  "editor",
+                  "production_lead"
+                ]
+              },
+              "tenant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "campaign_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "kind": {
+                "const": "impact_reviewed"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "request_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "affected_deliverable_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "estimated_extra_minutes": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "estimated_extra_cost_minor": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "reviewer_role": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "request_id",
+                  "affected_deliverable_ids",
+                  "estimated_extra_minutes",
+                  "estimated_extra_cost_minor",
+                  "reviewer_role"
+                ]
+              }
+            },
+            "required": [
+              "event_id",
+              "actor_role",
+              "tenant_id",
+              "campaign_id",
+              "at",
+              "kind",
+              "payload"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_role": {
+                "enum": [
+                  "account_owner",
+                  "agent",
+                  "client_approver",
+                  "connector",
+                  "editor",
+                  "production_lead"
+                ]
+              },
+              "tenant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "campaign_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "kind": {
+                "const": "commercial_decision_recorded"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "request_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "decision": {
+                    "enum": [
+                      "absorb",
+                      "charge",
+                      "swap",
+                      "defer",
+                      "reject"
+                    ]
+                  },
+                  "approved_extra_cost_minor": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "approved_fee_minor": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "approver_role": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "request_id",
+                  "decision",
+                  "approved_extra_cost_minor",
+                  "approved_fee_minor",
+                  "approver_role"
+                ]
+              }
+            },
+            "required": [
+              "event_id",
+              "actor_role",
+              "tenant_id",
+              "campaign_id",
+              "at",
+              "kind",
+              "payload"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_role": {
+                "enum": [
+                  "account_owner",
+                  "agent",
+                  "client_approver",
+                  "connector",
+                  "editor",
+                  "production_lead"
+                ]
+              },
+              "tenant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "campaign_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "kind": {
+                "const": "source_revision_committed"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "request_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "fact_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "new_version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "new_value": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "request_id",
+                  "fact_id",
+                  "expected_version",
+                  "new_version",
+                  "new_value"
+                ]
+              }
+            },
+            "required": [
+              "event_id",
+              "actor_role",
+              "tenant_id",
+              "campaign_id",
+              "at",
+              "kind",
+              "payload"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_role": {
+                "enum": [
+                  "account_owner",
+                  "agent",
+                  "client_approver",
+                  "connector",
+                  "editor",
+                  "production_lead"
+                ]
+              },
+              "tenant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "campaign_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "kind": {
+                "const": "artifact_revision_prepared"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "deliverable_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "new_version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "new_content": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "fact_refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "fact_id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "fact_version": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      },
+                      "required": [
+                        "fact_id",
+                        "fact_version"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "deliverable_id",
+                  "expected_version",
+                  "new_version",
+                  "new_content",
+                  "fact_refs"
+                ]
+              }
+            },
+            "required": [
+              "event_id",
+              "actor_role",
+              "tenant_id",
+              "campaign_id",
+              "at",
+              "kind",
+              "payload"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_role": {
+                "enum": [
+                  "account_owner",
+                  "agent",
+                  "client_approver",
+                  "connector",
+                  "editor",
+                  "production_lead"
+                ]
+              },
+              "tenant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "campaign_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "kind": {
+                "const": "dispatch_requested"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "action_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "deliverable_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "expected_artifact_version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "approval_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "idempotency_key": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "action_id",
+                  "deliverable_id",
+                  "expected_artifact_version",
+                  "approval_id",
+                  "idempotency_key"
+                ]
+              }
+            },
+            "required": [
+              "event_id",
+              "actor_role",
+              "tenant_id",
+              "campaign_id",
+              "at",
+              "kind",
+              "payload"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_role": {
+                "enum": [
+                  "account_owner",
+                  "agent",
+                  "client_approver",
+                  "connector",
+                  "editor",
+                  "production_lead"
+                ]
+              },
+              "tenant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "campaign_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "kind": {
+                "const": "connector_observed"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "action_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "outcome": {
+                    "enum": [
+                      "success",
+                      "unknown",
+                      "failure"
+                    ]
+                  },
+                  "observed_version": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "external_ref": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "action_id",
+                  "outcome",
+                  "observed_version",
+                  "external_ref"
+                ]
+              }
+            },
+            "required": [
+              "event_id",
+              "actor_role",
+              "tenant_id",
+              "campaign_id",
+              "at",
+              "kind",
+              "payload"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_role": {
+                "enum": [
+                  "account_owner",
+                  "agent",
+                  "client_approver",
+                  "connector",
+                  "editor",
+                  "production_lead"
+                ]
+              },
+              "tenant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "campaign_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "kind": {
+                "const": "reconciliation_observed"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "action_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "outcome": {
+                    "enum": [
+                      "success",
+                      "unknown",
+                      "failure"
+                    ]
+                  },
+                  "observed_version": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "external_ref": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "action_id",
+                  "outcome",
+                  "observed_version",
+                  "external_ref"
+                ]
+              }
+            },
+            "required": [
+              "event_id",
+              "actor_role",
+              "tenant_id",
+              "campaign_id",
+              "at",
+              "kind",
+              "payload"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_role": {
+                "enum": [
+                  "account_owner",
+                  "agent",
+                  "client_approver",
+                  "connector",
+                  "editor",
+                  "production_lead"
+                ]
+              },
+              "tenant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "campaign_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "kind": {
+                "const": "tenant_reference_requested"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "target_tenant_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "target_campaign_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "target_tenant_id",
+                  "target_campaign_id"
+                ]
+              }
+            },
+            "required": [
+              "event_id",
+              "actor_role",
+              "tenant_id",
+              "campaign_id",
+              "at",
+              "kind",
+              "payload"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_role": {
+                "enum": [
+                  "account_owner",
+                  "agent",
+                  "client_approver",
+                  "connector",
+                  "editor",
+                  "production_lead"
+                ]
+              },
+              "tenant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "campaign_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "kind": {
+                "const": "acceptance_recorded"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "deliverable_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "deliverable_version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "approver_role": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "deliverable_id",
+                  "deliverable_version",
+                  "approver_role"
+                ]
+              }
+            },
+            "required": [
+              "event_id",
+              "actor_role",
+              "tenant_id",
+              "campaign_id",
+              "at",
+              "kind",
+              "payload"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_role": {
+                "enum": [
+                  "account_owner",
+                  "agent",
+                  "client_approver",
+                  "connector",
+                  "editor",
+                  "production_lead"
+                ]
+              },
+              "tenant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "campaign_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "kind": {
+                "const": "closure_requested"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "request_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "request_id"
+                ]
+              }
+            },
+            "required": [
+              "event_id",
+              "actor_role",
+              "tenant_id",
+              "campaign_id",
+              "at",
+              "kind",
+              "payload"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "scenario_id",
+    "description",
+    "initial_campaign",
+    "events"
+  ]
+}

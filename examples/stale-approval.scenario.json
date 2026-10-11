@@ -1,0 +1,318 @@
+{
+  "schema_version": "1.0",
+  "scenario_id": "stale-approval",
+  "description": "A changed source is followed by an attempted dispatch under its old approval.",
+  "initial_campaign": {
+    "tenant_id": "tenant-synthetic-a",
+    "campaign_id": "campaign-demo",
+    "currency": "INR",
+    "budget_minor": 12000000,
+    "scope_version": 1,
+    "scope_approved": true,
+    "cost_rates": [
+      {
+        "role": "editor",
+        "version": 1,
+        "minor_per_hour": 100000
+      }
+    ],
+    "source_facts": [
+      {
+        "fact_id": "battery-life",
+        "version": 1,
+        "value": "Battery lasts 12 hours.",
+        "source_ref": "synthetic://approved-brief/v1"
+      }
+    ],
+    "deliverables": [
+      {
+        "deliverable_id": "d-caption",
+        "version": 1,
+        "kind": "caption",
+        "content": "Battery lasts 12 hours.",
+        "fact_refs": [
+          {
+            "fact_id": "battery-life",
+            "fact_version": 1
+          }
+        ],
+        "status": "approved",
+        "destination": "mock://social/caption"
+      },
+      {
+        "deliverable_id": "d-video",
+        "version": 1,
+        "kind": "video_edit_packet",
+        "content": "At 00:04 narrator says: Battery lasts 12 hours.",
+        "fact_refs": [
+          {
+            "fact_id": "battery-life",
+            "fact_version": 1
+          }
+        ],
+        "status": "approved",
+        "destination": "mock://review/video"
+      },
+      {
+        "deliverable_id": "d-evergreen",
+        "version": 1,
+        "kind": "caption",
+        "content": "Meet the people behind our product.",
+        "fact_refs": [],
+        "status": "approved",
+        "destination": "mock://social/evergreen"
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "t-caption",
+        "deliverable_id": "d-caption",
+        "owner_role": "editor",
+        "estimated_minutes": 30,
+        "rate_version": 1,
+        "estimated_cost_minor": 50000,
+        "depends_on": [],
+        "status": "complete"
+      },
+      {
+        "task_id": "t-video",
+        "deliverable_id": "d-video",
+        "owner_role": "editor",
+        "estimated_minutes": 120,
+        "rate_version": 1,
+        "estimated_cost_minor": 200000,
+        "depends_on": [],
+        "status": "complete"
+      },
+      {
+        "task_id": "t-evergreen",
+        "deliverable_id": "d-evergreen",
+        "owner_role": "editor",
+        "estimated_minutes": 30,
+        "rate_version": 1,
+        "estimated_cost_minor": 50000,
+        "depends_on": [],
+        "status": "complete"
+      }
+    ],
+    "authority_map": [
+      {
+        "role": "account_owner",
+        "allowed_event_kinds": [
+          "brief_approved",
+          "commercial_decision_recorded",
+          "source_revision_committed"
+        ],
+        "allowed_approval_purposes": [
+          "scope",
+          "commercial"
+        ]
+      },
+      {
+        "role": "agent",
+        "allowed_event_kinds": [
+          "artifact_revision_prepared",
+          "dispatch_requested",
+          "tenant_reference_requested",
+          "closure_requested"
+        ],
+        "allowed_approval_purposes": []
+      },
+      {
+        "role": "client_approver",
+        "allowed_event_kinds": [
+          "approval_granted",
+          "client_change_received",
+          "acceptance_recorded"
+        ],
+        "allowed_approval_purposes": [
+          "content",
+          "dispatch"
+        ]
+      },
+      {
+        "role": "connector",
+        "allowed_event_kinds": [
+          "connector_observed",
+          "reconciliation_observed"
+        ],
+        "allowed_approval_purposes": []
+      },
+      {
+        "role": "editor",
+        "allowed_event_kinds": [
+          "work_completed"
+        ],
+        "allowed_approval_purposes": []
+      },
+      {
+        "role": "production_lead",
+        "allowed_event_kinds": [
+          "impact_reviewed"
+        ],
+        "allowed_approval_purposes": []
+      }
+    ],
+    "approvals": [
+      {
+        "approval_id": "a-caption",
+        "purpose": "dispatch",
+        "subject_id": "d-caption",
+        "subject_version": 1,
+        "fact_refs": [
+          {
+            "fact_id": "battery-life",
+            "fact_version": 1
+          }
+        ],
+        "approved_by_role": "client_approver",
+        "approved_at": "2026-01-01T00:00:00Z",
+        "valid": true
+      },
+      {
+        "approval_id": "a-video",
+        "purpose": "dispatch",
+        "subject_id": "d-video",
+        "subject_version": 1,
+        "fact_refs": [
+          {
+            "fact_id": "battery-life",
+            "fact_version": 1
+          }
+        ],
+        "approved_by_role": "client_approver",
+        "approved_at": "2026-01-01T00:00:00Z",
+        "valid": true
+      },
+      {
+        "approval_id": "a-evergreen",
+        "purpose": "dispatch",
+        "subject_id": "d-evergreen",
+        "subject_version": 1,
+        "fact_refs": [],
+        "approved_by_role": "client_approver",
+        "approved_at": "2026-01-01T00:00:00Z",
+        "valid": true
+      },
+      {
+        "approval_id": "a-content-caption",
+        "purpose": "content",
+        "subject_id": "d-caption",
+        "subject_version": 1,
+        "fact_refs": [
+          {
+            "fact_id": "battery-life",
+            "fact_version": 1
+          }
+        ],
+        "approved_by_role": "client_approver",
+        "approved_at": "2026-01-01T00:00:00Z",
+        "valid": true
+      },
+      {
+        "approval_id": "a-content-video",
+        "purpose": "content",
+        "subject_id": "d-video",
+        "subject_version": 1,
+        "fact_refs": [
+          {
+            "fact_id": "battery-life",
+            "fact_version": 1
+          }
+        ],
+        "approved_by_role": "client_approver",
+        "approved_at": "2026-01-01T00:00:00Z",
+        "valid": true
+      },
+      {
+        "approval_id": "a-content-evergreen",
+        "purpose": "content",
+        "subject_id": "d-evergreen",
+        "subject_version": 1,
+        "fact_refs": [],
+        "approved_by_role": "client_approver",
+        "approved_at": "2026-01-01T00:00:00Z",
+        "valid": true
+      }
+    ]
+  },
+  "events": [
+    {
+      "event_id": "e-001",
+      "actor_role": "client_approver",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:01Z",
+      "kind": "client_change_received",
+      "payload": {
+        "request_id": "change-1",
+        "fact_id": "battery-life",
+        "expected_fact_version": 1,
+        "new_value": "Battery lasts 10 hours."
+      }
+    },
+    {
+      "event_id": "e-002",
+      "actor_role": "production_lead",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:02Z",
+      "kind": "impact_reviewed",
+      "payload": {
+        "request_id": "change-1",
+        "affected_deliverable_ids": [
+          "d-caption",
+          "d-video"
+        ],
+        "estimated_extra_minutes": 90,
+        "estimated_extra_cost_minor": 150000,
+        "reviewer_role": "production_lead"
+      }
+    },
+    {
+      "event_id": "e-003",
+      "actor_role": "account_owner",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:03Z",
+      "kind": "commercial_decision_recorded",
+      "payload": {
+        "request_id": "change-1",
+        "decision": "absorb",
+        "approved_extra_cost_minor": 150000,
+        "approved_fee_minor": 0,
+        "approver_role": "account_owner"
+      }
+    },
+    {
+      "event_id": "e-004",
+      "actor_role": "account_owner",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:04Z",
+      "kind": "source_revision_committed",
+      "payload": {
+        "request_id": "change-1",
+        "fact_id": "battery-life",
+        "expected_version": 1,
+        "new_version": 2,
+        "new_value": "Battery lasts 10 hours."
+      }
+    },
+    {
+      "event_id": "e-005",
+      "actor_role": "agent",
+      "tenant_id": "tenant-synthetic-a",
+      "campaign_id": "campaign-demo",
+      "at": "2026-01-02T00:00:05Z",
+      "kind": "dispatch_requested",
+      "payload": {
+        "action_id": "act-caption",
+        "deliverable_id": "d-caption",
+        "expected_artifact_version": 1,
+        "approval_id": "a-caption",
+        "idempotency_key": "key-caption"
+      }
+    }
+  ]
+}
