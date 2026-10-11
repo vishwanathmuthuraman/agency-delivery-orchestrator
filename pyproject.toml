@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools==80.10.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agency-delivery-orchestrator"
+version = "0.1.0"
+description = "Offline synthetic research components for agency-delivery-orchestrator"
+requires-python = ">=3.12,<3.13"
+dependencies = ["jsonschema==4.26.0"]
+
+[project.scripts]
+agency = "agency_delivery_orchestrator.cli:main"
+
+[dependency-groups]
+dev = ["pytest==9.1.1", "ruff==0.16.6", "Markdown==3.10.3"]
+
+[tool.setuptools]
+packages = ["agency_delivery_orchestrator", "agency_delivery_orchestrator.schemas"]
+package-dir = {"agency_delivery_orchestrator" = "src/agency_delivery_orchestrator", "agency_delivery_orchestrator.schemas" = "schemas"}
+
+[tool.setuptools.package-data]
+"agency_delivery_orchestrator.schemas" = ["*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

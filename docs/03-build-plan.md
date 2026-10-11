@@ -1,6 +1,6 @@
 # 03 — Public milestones
 
-The repository currently contains a specification, six synthetic scenarios and documentation-checking utilities. The application and comparative evaluation are not implemented.
+Initial offline components are implemented and verified. See [component progress and actual evidence](IMPLEMENTATION.md). M1–M3 have limited initial-state component evidence. There is no event replay, operational coordination loop or completed milestone. M4 and M5 remain pending. The milestones below retain their complete acceptance boundaries.
 
 | Milestone | Intended result | Evidence required |
 |---|---|---|

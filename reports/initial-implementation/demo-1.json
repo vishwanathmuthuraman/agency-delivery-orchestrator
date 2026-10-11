@@ -1,0 +1,48 @@
+{
+  "schema_version": "0.1",
+  "kind": "initial_campaign_inspection",
+  "tenant_id": "tenant-synthetic-a",
+  "campaign_id": "campaign-demo",
+  "currency": "INR",
+  "estimated_cost_minor": 300000,
+  "over_budget": false,
+  "tasks": [
+    {
+      "task_id": "t-caption",
+      "status": "complete",
+      "ready": false,
+      "incomplete_prerequisites": []
+    },
+    {
+      "task_id": "t-evergreen",
+      "status": "complete",
+      "ready": false,
+      "incomplete_prerequisites": []
+    },
+    {
+      "task_id": "t-video",
+      "status": "complete",
+      "ready": false,
+      "incomplete_prerequisites": []
+    }
+  ],
+  "approval_bindings": [
+    {
+      "deliverable_id": "d-caption",
+      "current_content_approval": true,
+      "current_dispatch_approval": true
+    },
+    {
+      "deliverable_id": "d-video",
+      "current_content_approval": true,
+      "current_dispatch_approval": true
+    },
+    {
+      "deliverable_id": "d-evergreen",
+      "current_content_approval": true,
+      "current_dispatch_approval": true
+    }
+  ],
+  "events_replayed": false,
+  "external_write_count": 0
+}

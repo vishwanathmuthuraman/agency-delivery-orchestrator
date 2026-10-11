@@ -3,12 +3,27 @@
 ![Agency Delivery Orchestrator — From approved scope to verified delivery.](docs/assets/overview.svg)
 
 [![Documentation integrity](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/docs.yml/badge.svg?branch=main)](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/docs.yml)
+[![Implementation checks](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/implementation.yml/badge.svg?branch=main)](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/implementation.yml)
 
 **How can a campaign stay coordinated when its inputs, deadlines or approved content change?**
 
 Model the full campaign lifecycle: scope, task ownership, capacity, review, change handling, delivery verification and billing evidence.
 
-**Stage: research specification.** This repository contains design work and synthetic examples. Application implementation and performance evaluation are pending; there is no working product or measured result yet.
+**Stage: initial offline implementation.** Runnable Python components, synthetic demos and behavioral tests are available. The complete workflow, predictive/model evaluation and production product remain pending.
+
+## Run the initial implementation
+
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then run these commands from this repository. The runtime is pinned to Python 3.12.13; dependencies are pinned in `uv.lock`.
+
+```sh
+uv sync --locked
+uv run --locked agency inspect examples/duplicate-dispatch.scenario.json
+uv run --locked pytest
+```
+
+The CLI prints JSON. `validate` checks the same input contract; invalid or unsupported input returns exit code 2 with a JSON error on stderr. Successful inspection returns exit code 0.
+
+**Verified locally:** 24 behavioral/CLI tests, Ruff checks, and an installed wheel executed outside the checkout. See [completed tasks and next steps](docs/IMPLEMENTATION.md), [the actual verification record](reports/initial-implementation/verification.json) and [captured demo output](reports/initial-implementation/demo-1.json). This evidence covers the initial offline components; the full study remains pending.
 
 [Explore the example](#a-concrete-example) · [Architecture](docs/02-architecture.md) · [Evaluation protocol](docs/04-evaluation.md) · [Engineering standards](ENGINEERING.md)
 
@@ -43,6 +58,7 @@ Sending a request is not completing the work. The system must reconcile uncertai
 | Original synthetic scenarios and schemas | Concrete inputs and explicit expected behavior. |
 | Evaluation protocol and release criteria | How implementation and claims should be assessed. |
 | Source rationale | Which public evidence motivated the design and which conclusions remain hypotheses. |
+| [Initial implementation](docs/IMPLEMENTATION.md) | Runnable component code, boundary tests and captured synthetic output. |
 | Documentation checks | Whether the supplied JSON, relative links and original SVG assets are structurally valid. |
 
 Six original synthetic scenarios with expected outcomes, contracts, lifecycle requirements, architecture and a proposed comparative evaluation.
@@ -76,13 +92,14 @@ From a clone of this repository with Python 3.12 or later:
 python scripts/check_public_docs.py
 ```
 
-This checks documentation only. Application installation and demo commands will be added when implemented and verified. The repository's **Documentation integrity** workflow runs the same check on pushes and pull requests.
+This checks documentation only. Behavioral tests run separately in the **Implementation checks** workflow. The repository's **Documentation integrity** workflow runs the same check on pushes and pull requests.
 
 ## Research roadmap
 
 - [x] Define the problem, contracts and illustrative synthetic scenarios.
 - [x] Document evaluation methods and consequential failure cases.
-- [ ] Implement and test a reproducible offline baseline.
+- [x] Implement and test the initial offline components documented above.
+- [ ] Complete the full offline workflow and baseline required by the release criteria.
 - [ ] Complete held-out comparisons and publish actual results, including failures.
 - [ ] Seek independent reproduction and review.
 
