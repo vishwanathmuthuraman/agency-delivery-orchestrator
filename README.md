@@ -2,6 +2,8 @@
 
 ![Agency Delivery Orchestrator — From approved scope to verified delivery.](docs/assets/overview.svg)
 
+[![Documentation integrity](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/docs.yml/badge.svg?branch=main)](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/docs.yml)
+
 **How can a campaign stay coordinated when its inputs, deadlines or approved content change?**
 
 Model the full campaign lifecycle: scope, task ownership, capacity, review, change handling, delivery verification and billing evidence.
