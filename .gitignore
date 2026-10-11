@@ -33,3 +33,6 @@ data/private/
 credentials*
 secrets*
 
+
+# Local reading snapshots are not part of the curated public package.
+BLUEPRINT.html

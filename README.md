@@ -1,61 +1,93 @@
 # Agency Delivery Orchestrator
 
-**Status: documentation blueprint and original synthetic examples. The application is not implemented.** No completed benchmark, customer deployment, autonomous production capability or time saving is claimed. Expected-result files describe intended behavior, not measured output.
+![Agency Delivery Orchestrator — From approved scope to verified delivery.](docs/assets/overview.svg)
 
-A planned local simulator for coordinating an agency campaign from an approved brief to verified delivery. It models the work around creative production: collecting inputs, planning tasks and capacity, arranging handoffs, gathering feedback, handling changes, checking approvals and preparing a billing evidence packet.
+**How can a campaign stay coordinated when its inputs, deadlines or approved content change?**
 
-The most detailed demonstration asks: **when a client changes a fact, requirement or deadline, can we identify the affected work, make its consequences clear, obtain the right decisions, and verify that the correction was completed?** That demonstration is one part of the full delivery lifecycle.
+Model the full campaign lifecycle: scope, task ownership, capacity, review, change handling, delivery verification and billing evidence.
+
+**Stage: research specification.** This repository contains design work and synthetic examples. Application implementation and performance evaluation are pending; there is no working product or measured result yet.
+
+[Explore the example](#a-concrete-example) · [Architecture](docs/02-architecture.md) · [Evaluation protocol](docs/04-evaluation.md) · [Engineering standards](ENGINEERING.md)
 
 ## A concrete example
 
-A fictional client approves a campaign containing a script, a video editing task, a caption and a scheduled social post. The client then changes an approved product claim. The proposed system identifies dependent outputs, pauses affected dispatches, estimates additional work using versioned rates, and presents a commercial choice. After an authorized decision, it drafts a supported caption correction, prepares a work packet for the human editor, requests approval of the new versions, and verifies the mock destination contains the approved version. Unrelated work continues.
+A client changes an approved product claim. The script, caption and scheduled post depend on that claim. Updating one text field does not establish that the video was edited or that the correct version was delivered.
 
-The system must never turn “I sent a request” into “the work is finished.” A timeout means the result is unknown until the destination is reconciled. Changing a caption does not mean the spoken words inside a video have been changed.
+[Six synthetic workflow scenarios](examples/README.md)
 
-## The whole product scope
+The expected outcomes describe the intended behavior. They are not output from an executed application.
 
-| Delivery stage | Planned v1 behavior |
-|---|---|
-| Brief and scope | Validate a structured synthetic brief, deliverables, acceptance criteria and missing inputs. |
-| Plan and budget | Propose a task graph; calculate cost and capacity from explicit inputs; preserve an approved baseline. |
-| Collect and coordinate | Track input requests, task owners, blockers, handoffs and mock reminders. |
-| Produce and review | Route versioned work; prepare text drafts and human editing packets; collect role-specific decisions. |
-| Manage changes | Trace affected content, compare options and require approval of commercial consequences. |
-| Complete delivery | Recheck readiness, use a mock connector, reconcile uncertain results and verify observed versions. |
-| Close the campaign | Produce acceptance and delivery evidence plus a draft billing-readiness export. |
+## How the proposed system works
 
-This is a bounded agency workflow prototype. It is not a general ledger, tax engine, payroll system, purchasing suite, real publishing integration or a guarantee that every creative task can be automated. Future connections to those systems require separate scope and authorization.
-
-## Start here
-
-1. Read [product requirements](docs/01-product-requirements.md) for users, scenarios and acceptance criteria.
-2. Read [architecture](docs/02-architecture.md) before implementing revisions, approvals, money or dispatch.
-3. Follow [the build plan](docs/03-build-plan.md) and maintain [the task tracker](planning/tasks.csv).
-4. Freeze [the evaluation protocol](docs/04-evaluation.md) before using held-out cases.
-5. Use [definition of done](docs/05-definition-of-done.md) to distinguish a finished blueprint, working v1, evaluated result and release-ready artifact.
-6. Review [sources and rationale](docs/06-sources-and-design-rationale.md), [delivery risks](docs/07-delivery-and-risk.md) and [publication](docs/08-publication.md).
-
-[BLUEPRINT.html](BLUEPRINT.html) is the offline reading edition. The Markdown documents are the editable specification. The JSON files under `schemas/` define machine-readable contracts. The examples under `examples/` are synthetic teaching cases; they do not constitute the proposed evaluation corpus.
-
-The current blueprint tooling can run in a local environment:
-
-```sh
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements-blueprint.txt
-.venv/bin/python scripts/validate_blueprint.py
-.venv/bin/python scripts/render_blueprint.py
+```mermaid
+flowchart LR
+    A[Approved brief] --> B[Tasks and capacity]
+    B --> C[Production and review]
+    C --> D[Version-bound approval]
+    D --> E[Mock dispatch]
+    E --> F[Verified delivery evidence]
+    G[Client change] --> B
+    G --> C
 ```
 
-These commands validate and render documentation only. They do not execute the proposed application. The supplied control fixtures include reviewed impact and prepared text; successful future replay would not by itself prove semantic discovery or model-generated correction.
+Sending a request is not completing the work. The system must reconcile uncertain outcomes and bind approvals to the actual version being delivered.
 
-## Intended implementation
+## What you can inspect today
 
-Python 3.12, SQLite, a deterministic command-line runner and a local HTML report. Default execution must work without credentials, network access or a model provider. An optional model adapter can propose dependency links, classifications and text revisions. Deterministic rules and explicit reviewer decisions remain responsible for authorization, money and state changes. An optional UI follows the working core.
+| Artifact | What it establishes |
+|---|---|
+| Requirements and architecture | The proposed problem, boundaries and consequential design decisions. |
+| Original synthetic scenarios and schemas | Concrete inputs and explicit expected behavior. |
+| Evaluation protocol and release criteria | How implementation and claims should be assessed. |
+| Source rationale | Which public evidence motivated the design and which conclusions remain hypotheses. |
+| Documentation checks | Whether the supplied JSON, relative links and original SVG assets are structurally valid. |
 
-The build plan contains **future interface contracts**, not a runnable installation guide. No product CLI or application package is claimed to exist today. Any documentation/schema validation scripts supplied with the blueprint validate only the specification artifacts.
+Six original synthetic scenarios with expected outcomes, contracts, lifecycle requirements, architecture and a proposed comparative evaluation.
 
-## Evidence and originality
+## Technical choices
 
-Consulting reports motivate investigating disconnected content operations. Existing agency management, proofing, asset management and professional-services products already cover substantial parts of this scope. This project tests a specific implementation and evaluation design; it does not claim to invent agency management, lack competitors, demonstrate demand or establish research novelty. [The source register](docs/06-sources-and-design-rationale.md) explains those overlaps.
+Python + SQLite for the offline workflow simulator. Production connectors and a user interface follow separate justified architecture decisions; v1 external actions remain mocked.
 
-All examples are original synthetic records. No private client records, affiliations, contacts, contracts or credentials belong in this repository. This repository is prepared for authorized public GitHub sharing as a documentation blueprint; public availability is not an application release or deployment. License selection is pending, and no code, documentation or synthetic-data license grant is supplied. Choose and record terms before an openly licensed reusable release.
+Python, Go, Rust, SQL, TypeScript and Rails each have appropriate uses. This project follows [documented selection rules](ENGINEERING.md): add a runtime or framework only when requirements, profiling and maintainability justify it.
+
+## What the evaluation must show
+
+Measure correct impact handling, approval validity, completion evidence, unnecessary blocking and unresolved dispatch outcomes. Keep mock delivery, human editing and optional model proposals distinct.
+
+The [evaluation protocol](docs/04-evaluation.md) defines the comparison and limitations. No benchmark score, customer impact, novelty claim or independent endorsement is asserted.
+
+## Read the design
+
+| Start with | Then inspect |
+|---|---|
+| [Problem and requirements](docs/01-product-requirements.md) | [Architecture and boundaries](docs/02-architecture.md) |
+| [Public implementation milestones](docs/03-build-plan.md) | [Evaluation protocol](docs/04-evaluation.md) |
+| [Definition of done](docs/05-definition-of-done.md) | [Sources and design rationale](docs/06-sources-and-design-rationale.md) |
+| [Technical limitations](docs/07-delivery-and-risk.md) | [Publication boundaries](docs/08-publication.md) |
+
+## Check this documentation
+
+From a clone of this repository with Python 3.12 or later:
+
+```sh
+python scripts/check_public_docs.py
+```
+
+This checks documentation only. Application installation and demo commands will be added when implemented and verified. The repository's **Documentation integrity** workflow runs the same check on pushes and pull requests.
+
+## Research roadmap
+
+- [x] Define the problem, contracts and illustrative synthetic scenarios.
+- [x] Document evaluation methods and consequential failure cases.
+- [ ] Implement and test a reproducible offline baseline.
+- [ ] Complete held-out comparisons and publish actual results, including failures.
+- [ ] Seek independent reproduction and review.
+
+## Scope and contribution
+
+See [contribution guidance](CONTRIBUTING.md) for useful review questions. Reports should include a minimal synthetic example and the relevant requirement or evaluation rule. Never submit customer records, credentials or private operational information.
+
+This is a curated research repository. Internal delivery schedules and commercial planning are maintained separately. Public technical methods are deliberately inspectable; public availability does not imply production readiness.
+
+Maintained by [Vishwanath Muthuraman](https://github.com/vishwanathmuthuraman). Source material is cited; citations do not imply endorsement. License selection is pending, and no code, documentation or data license grant is supplied.

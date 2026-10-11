@@ -6,36 +6,36 @@
 
 - README explains the scope, current status and future commands accurately.
 - Eight numbered documents, schemas, six original synthetic scenarios and separate expected specifications exist and agree.
-- Requirements have acceptance criteria; the task tracker has dependencies, estimates and honest statuses.
+- Requirements have acceptance criteria and map to the [public milestones](03-build-plan.md).
 - Source provenance, existing-product overlap and limitations are documented without a novelty claim.
-- Documentation checks pass: schemas, references, arithmetic, local links and task dependencies.
-- The reading edition accurately reflects the Markdown specification and is readable locally.
+- Documentation checks pass: schemas, references, arithmetic and local links.
+- The public documentation accurately reflects the specification and distinguishes planned work from verified artifacts.
 
 Passing this gate means a reviewer can start implementation. It does not mean expected outcomes occurred or the application is safe.
 
 ## Gate B — Offline v1 complete
 
-Tasks T01–T31 and T36 have completion evidence; optional model/UI branches are not required. In addition to replaying all six public cases, a separate full-lifecycle integration demonstration must exercise input collection, task readiness, capacity conflict, bounded reminders, baseline revision, supported correction, human editing handoff, role-specific review, mock dispatch, reconciliation and closure.
+Milestones M1–M4 have completion evidence; optional model/UI branches are not required. In addition to replaying all six public cases, a separate full-lifecycle integration demonstration must exercise input collection, task readiness, capacity conflict, bounded reminders, baseline revision, supported correction, human editing handoff, role-specific review, mock dispatch, reconciliation and closure.
 
 The six starter examples alone do not cover every lifecycle requirement. They also supply reviewed impact and prepared revisions. Their replay cannot prove semantic discovery or autonomous creative production.
 
-| Requirement group | Future verification evidence | Tasks |
+| Requirement group | Future verification evidence | Milestone |
 |---|---|---|
-| FR-01, FR-19 | Contract rejection, atomic import, duplicate/conflicting events, repeatable replay and restart | T03, T04, T26 |
-| FR-02 | Tenant canaries across storage, cache, errors, model context and exports | T05, T31 |
-| FR-03, FR-06 | Immutable baseline, rate versions, half-up arithmetic and distinct cost/fee records | T08, T09, T16 |
-| FR-04–FR-07 | Missing inputs, readiness graph, capacity conflict and reminder deduplication | T10–T13 |
-| FR-08–FR-10 | Evidence-linked impact, known-change handling, uncertainty and rejection of unsupported proposals | T14, T15, T31 |
-| FR-11–FR-13 | Authorized commercial choices, exact-base text patches, editing packets and current approvals | T16–T19 |
-| FR-14–FR-16 | Final guard race, idempotency conflicts, outbox durability and unknown-outcome recovery | T20–T23 |
-| FR-17–FR-18 | Observed target version, explicit acceptance and draft billing packet | T24, T25 |
-| FR-20 | Shared-guard comparisons, no hidden labels, meaningful metrics and failure accounting | T28–T30 |
+| FR-01, FR-19 | Contract rejection, atomic import, duplicate/conflicting events, repeatable replay and restart | M1, M4 |
+| FR-02 | Tenant canaries across storage, cache, errors, model context and exports | M1 |
+| FR-03, FR-06 | Immutable baseline, rate versions, half-up arithmetic and distinct cost/fee records | M2, M3 |
+| FR-04–FR-07 | Missing inputs, readiness graph, capacity conflict and reminder deduplication | M2 |
+| FR-08–FR-10 | Evidence-linked impact, known-change handling, uncertainty and rejection of unsupported proposals | M3 |
+| FR-11–FR-13 | Authorized commercial choices, exact-base text patches, editing packets and current approvals | M3 |
+| FR-14–FR-16 | Final guard race, idempotency conflicts, outbox durability and unknown-outcome recovery | M4 |
+| FR-17–FR-18 | Observed target version, explicit acceptance and draft billing packet | M4 |
+| FR-20 | Shared-guard comparisons, no hidden labels, meaningful metrics and failure accounting | M5 |
 
 All mandatory behavior must be verified in the offline simulator. Zero unresolved known defects may permit unauthorized dispatch, cross-client disclosure, duplicate effects under the declared mock contract, or false claims of verified completion. A UI screenshot is not evidence that those properties hold.
 
 ## Gate C — Evaluated research artifact
 
-Tasks T33–T35 are complete: 36 additional development and 36 held-out scenarios exist, group splits are reviewed, the protocol is frozen, and all 108 held-out replays are accounted for. Publish actual results and shortcomings. Any model study is separately complete or explicitly deferred.
+Milestone M5 requires the following evidence: 36 additional development and 36 held-out scenarios exist, group splits are reviewed, the protocol is frozen, and all 108 held-out replays are accounted for. Publish actual results and shortcomings. Any model study is separately complete or explicitly deferred.
 
 Proposed product-performance targets, not established industry standards:
 
@@ -49,7 +49,7 @@ A reproducible study with failed performance targets can be a completed research
 
 ## Gate D — Public release ready
 
-Task T37 and [publication checks](08-publication.md) are complete. Select licenses, inspect files/history, verify attribution and privacy, reproduce installation and review all outward claims. The public README must identify which earlier gates actually passed. Public readiness is separate from live customer readiness.
+Milestone M6 requires completion of the [publication checks](08-publication.md). Select licenses, inspect files/history, verify attribution and privacy, reproduce installation and review all outward claims. The public README must identify which earlier gates actually passed. Public readiness is separate from live customer readiness.
 
 A real pilot additionally needs authorized access, production authentication, deployment and retention decisions, connector-specific guarantees, documented reviewers and an agreed rollback/incident process. Those are future scope, not accomplished by the offline prototype.
 

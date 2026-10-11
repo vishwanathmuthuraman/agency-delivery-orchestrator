@@ -2,29 +2,15 @@
   "checked_on": "2026-10-11",
   "scope": "Blueprint only; application and benchmark not implemented",
   "numbered_design_documents": 8,
-  "planned_tasks": 38,
-  "required_tasks": 36,
-  "required_hours": [
-    209,
-    329
-  ],
-  "all_hours_including_optional": [
-    227,
-    359
-  ],
   "schemas": 4,
   "synthetic_scenarios": 6,
   "synthetic_expected_specifications": 6,
   "documentation_validator": "passed in a fresh isolated documentation environment",
   "documentation_python": "3.14.7; proposed application Python 3.12 not tested",
-  "html_structure_and_local_links": "passed for blueprint, index and private ERP brief",
   "confidential_name_and_secret_pattern_scan": "passed on repository candidate files",
   "ignore_rules": "checked",
   "independent_review": "fixture and comparative-reviewer issues corrected",
-  "local_git_branch": "main",
-  "git_remote_created": false,
   "application_tests_run": false,
   "benchmarks_run": false,
-  "visual_browser_review": "not performed; offline document styles and structure checked",
-  "blueprint_sha256": "e36c76e5f026cfc7a7a0e9af1cdfec782882e4476328c76de0bc667b5a189d20"
+  "record_status": "Historical documentation validation before public-document curation; current whole-repository checks must be rerun."
 }

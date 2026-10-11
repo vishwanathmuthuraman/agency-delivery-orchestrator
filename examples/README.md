@@ -45,6 +45,6 @@ The exact expected invalidation list in `client-claim-change` describes the sele
 
 ## Validate documentation today
 
-Run `python3 scripts/validate_blueprint.py` from the repository root. It requires the `jsonschema` package and checks schemas, example structure, reference integrity, task arithmetic, documentation links and task dependencies. It does not run the proposed application or establish expected outcomes. The validator reports its checks and exits nonzero on a defect.
+Run `python3 scripts/check_public_docs.py` from the repository root. It uses the Python standard library to check JSON syntax, relative documentation links and SVG structure. The compatibility command `python3 scripts/validate_blueprint.py` runs the same checks. These checks do not validate scenario semantics, schema conformance, application behavior or expected outcomes. The checker reports its scope and exits nonzero on a detected documentation defect.
 
 The six public examples are development references and must never be described as unseen evaluation cases. Additional development and held-out datasets remain to be authored under the evaluation protocol.
