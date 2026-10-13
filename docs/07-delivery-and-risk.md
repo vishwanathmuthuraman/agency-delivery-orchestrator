@@ -1,6 +1,6 @@
 # 07 — Technical limitations and research risks
 
-The application is not implemented. Synthetic scenarios describe required behavior; they do not establish autonomous project management, customer adoption or measurable savings.
+Initial components are implemented as recorded in [IMPLEMENTATION.md](IMPLEMENTATION.md); the full workflow and [AI project lead scope](10-ai-project-lead.md) remain pending. Synthetic scenarios describe required behavior; they do not establish autonomous project management, customer adoption or measurable savings.
 
 | Limitation | Consequence | Verification or disclosure required |
 |---|---|---|

@@ -1,6 +1,6 @@
 # 01 — Product requirements
 
-**Specification version 0.1. All application requirements below are proposed and unachieved.** The repository is a build blueprint. The user-facing promise of the eventual demonstration is: “Show what needs doing, why it matters, who must decide, and whether the accepted work actually reached the intended destination.”
+**Specification version 0.1; full lifecycle pending.** Initial components are implemented as recorded in [IMPLEMENTATION.md](IMPLEMENTATION.md). The user-facing promise of the eventual demonstration is: “Show what needs doing, why it matters, who must decide, and whether the accepted work actually reached the intended destination.” The [AI project lead scope](10-ai-project-lead.md) adds FR-21–FR-27 for company context, grounded AI and real bidirectional coordination; offline v1 alone does not complete that product.
 
 ## 1. Users and the job
 

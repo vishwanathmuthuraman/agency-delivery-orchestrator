@@ -1,6 +1,6 @@
 # 05 — Definition of done
 
-**Application and evaluation targets are unachieved.** A detailed document is not a working product. Use the following four gates and record actual evidence, date, reviewer and software/document revision.
+**Full workflow and evaluation targets remain unachieved.** Initial components are recorded in [IMPLEMENTATION.md](IMPLEMENTATION.md). A detailed document is not a working product. Use the following four research gates and record actual evidence, date, reviewer and software/document revision. The broader AI project lead additionally requires [Product Gate E](10-ai-project-lead.md#build-sequence-and-release-boundary), including grounded model proposals and Slack/email coordination; the offline gates alone do not complete it.
 
 ## Gate A — Blueprint complete
 

@@ -1,6 +1,6 @@
 # 02 — Architecture and behavioral contracts
 
-**Proposed architecture; application modules do not exist yet.** JSON schemas in `schemas/` are the field-level contracts. The semantics below govern implementation; if a fixture and this document disagree, resolve and record the conflict before coding rather than silently choosing one.
+**Proposed full architecture; initial components exist.** See [IMPLEMENTATION.md](IMPLEMENTATION.md) for verified behavior and [the product extension](10-ai-project-lead.md) for company context and real coordination requirements. JSON schemas in `schemas/` are the field-level contracts. The semantics below govern implementation; if a fixture and this document disagree, resolve and record the conflict before coding rather than silently choosing one.
 
 ## 1. Bounded design
 

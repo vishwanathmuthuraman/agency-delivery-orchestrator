@@ -9,6 +9,8 @@
 
 Model the full campaign lifecycle: scope, task ownership, capacity, review, change handling, delivery verification and billing evidence.
 
+**Product direction: an AI project lead.** The complete product must maintain permission-aware company and project context, contact owners through a configured channel, interpret replies, update plans and verify completion. The [complete coordination scope](docs/10-ai-project-lead.md) records these requirements and the intervention-planning research; these capabilities are not yet implemented.
+
 **Stage: initial offline implementation.** Runnable Python components, synthetic demos and behavioral tests are available. The complete workflow, predictive/model evaluation and production product remain pending.
 
 ## Run the initial implementation
