@@ -26,7 +26,7 @@ If a real secret was ever committed, rotate it and address history exposure befo
 
 ## 3. Resolve licenses and attribution
 
-No license has been selected, and no code, documentation or synthetic-data license grant is supplied. Choose explicit terms before an openly licensed reusable release; confirm ownership and dependency compatibility. Add notices where required. Public accessibility does not grant permission to redistribute third-party reports, customer assets, fonts or software.
+Original code, documentation and synthetic fixtures are licensed under Apache-2.0; see LICENSE and NOTICE. Third-party material retains its own terms. Review ownership, dependency compatibility and required notices for every addition. Public accessibility does not grant permission to redistribute third-party reports, customer assets, fonts or software.
 
 Keep report citations as short paraphrases and direct links. Identify vendor descriptions as claims rather than independent results. Avoid implying affiliation or endorsement. Recheck dated product capabilities before publishing a competitive statement as current.
 
