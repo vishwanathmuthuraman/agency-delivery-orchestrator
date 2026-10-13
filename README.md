@@ -1,6 +1,6 @@
-# Agency Delivery Orchestrator
+# Followlane — your AI project lead
 
-![Agency Delivery Orchestrator — From approved scope to verified delivery.](docs/assets/overview.svg)
+![Followlane — your AI project lead.](docs/assets/overview.svg)
 
 [![Documentation integrity](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/docs.yml/badge.svg?branch=main)](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/docs.yml)
 [![Implementation checks](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/implementation.yml/badge.svg?branch=main)](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/implementation.yml)
@@ -9,9 +9,11 @@
 
 Model the full campaign lifecycle: scope, task ownership, capacity, review, change handling, delivery verification and billing evidence.
 
-**Product direction: an AI project lead.** The complete product must maintain permission-aware company and project context, contact owners through a configured channel, interpret replies, update plans and verify completion. The [complete coordination scope](docs/10-ai-project-lead.md) records these requirements and the intervention-planning research; these capabilities are not yet implemented.
+**Product direction: Followlane, your AI project lead.** The complete product must maintain permission-aware company and project context, contact owners through Slack and email, interpret replies, update plans and verify completion. The [complete coordination scope](docs/10-ai-project-lead.md) records these requirements and the intervention-planning research; these capabilities are not yet implemented.
 
 **Stage: initial offline implementation.** Runnable Python components, synthetic demos and behavioral tests are available. The complete workflow, predictive/model evaluation and production product remain pending.
+
+Followlane is the working product name. This repository remains the public Apache-2.0 research foundation, previously titled Agency Delivery Orchestrator. Its GitHub URL, Python package and CLI stay stable for existing users. The full product core is developed privately; API/MCP access is the distribution direction. No public hosted service is available yet.
 
 ## Run the initial implementation
 

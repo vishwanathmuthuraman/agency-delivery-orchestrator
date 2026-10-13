@@ -52,7 +52,7 @@ A candidate approach combines a calibrated duration model, constrained schedulin
 
 Compare against fixed reminders, earliest-deadline-first, critical-path-first and a resource-constrained scheduler. Report completion/delay, useful work finished, requests sent, interruption load, errors, policy violations and sensitivity to response assumptions. All policies receive the same observable information; hindsight oracles are labeled upper bounds. No improvement or novelty is established yet.
 
-This belongs inside this project: it needs the same memory, task state, permissions, messages and outcome records. An independent planning library is justified later only if another workflow demonstrably reuses it.
+This belongs inside the Followlane product: it needs the same memory, task state, permissions, messages and outcome records. An independent planning library is justified later only if another workflow demonstrably reuses it.
 
 ## Build sequence and release boundary
 
@@ -63,3 +63,7 @@ This belongs inside this project: it needs the same memory, task state, permissi
 5. Evaluate the intervention planner against frozen baselines and seek independent reproduction.
 
 The existing Gates A–D remain the original research milestones. **Product Gate E** additionally requires FR-21–FR-27, a tested real integration, a tested model-backed proposal path and operational pause/recovery controls. A deterministic mock model or mock connector cannot satisfy those requirements. Until Gate E has evidence, describe this as an early implementation of a proposed AI project lead.
+
+## Product identity and implementation boundary
+
+Followlane is the working product name as of 13 October 2026. This repository preserves the public Apache-2.0 research foundation and stable package/CLI. Further product-core implementation is private, with API/MCP access planned for distribution. The intervention planner remains part of that product rather than a competing management app. Public research milestones and Product Gate E remain valid; a private prototype does not satisfy the complete operational gate. This name is not a claim of trademark registration or incorporation.
