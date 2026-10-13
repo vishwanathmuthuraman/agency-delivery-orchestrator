@@ -1,9 +1,17 @@
-# Followlane — your AI project lead
+<p align="center"><img src="docs/assets/brand/logo.svg" width="88" height="88" alt="Followlane logo"></p>
 
-![Followlane — your AI project lead.](docs/assets/overview.svg)
+# Followlane — AI project coordination research
 
-[![Documentation integrity](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/docs.yml/badge.svg?branch=main)](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/docs.yml)
+<p align="center"><img src="docs/assets/brand/banner.svg" width="100%" alt="Followlane: Keep the work moving. Keep the context. Task readiness, Approval validity, Delivery research. Offline research components."></p>
+
 [![Implementation checks](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/implementation.yml/badge.svg?branch=main)](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/implementation.yml)
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB?style=flat-square)](pyproject.toml)
+[![Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-68b89b?style=flat-square)](LICENSE)
+[![Documentation integrity](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/docs.yml/badge.svg?branch=main)](https://github.com/vishwanathmuthuraman/agency-delivery-orchestrator/actions/workflows/docs.yml)
+
+[Quick start](#run-the-initial-implementation) · [Implemented scope](docs/IMPLEMENTATION.md) · [Architecture](docs/02-architecture.md) · [Evaluation](docs/04-evaluation.md) · [Contribute](CONTRIBUTING.md)
+
+---
 
 **How can a campaign stay coordinated when its inputs, deadlines or approved content change?**
 
