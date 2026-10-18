@@ -28,6 +28,16 @@ Observed demo: The inspector reports the initial campaign cost, prerequisite rea
 
 [Captured output](../reports/initial-implementation/demo-1.json). Test use of authored expected files is restricted to development assertions; application code does not open them. These are component regressions, not independent held-out evaluation or performance measurements.
 
+## Event reduction slice (M1/M2, one event type)
+
+Source: [reducer](../src/agency_delivery_orchestrator/replay.py), [tests](../tests/test_replay.py).
+
+Implemented: an in-memory pure reducer and replay from the validated initial state for `source_revision_committed` only. It checks the event schema, tenant/campaign match, role authority, duplicate event identity, chronological order, expected-version match and a version increment of exactly one. Each applied event extends a SHA-256 history digest; input states and events are not mutated. Revising a fact invalidates only approvals bound to the old fact version, using the existing approval binding check. Replay from the start and resume from a JSON round-tripped intermediate state produce identical results.
+
+Commands run: `uv run --locked ruff check src tests`, `uv run --locked ruff format --check src tests`, `uv run --locked pytest`, `python scripts/check_public_docs.py`. Observed: Ruff passed, 35 tests passed (11 new in `tests/test_replay.py`, none failed) and `scripts/check_public_docs.py` completed without error.
+
+Remaining limits: all other event kinds are rejected as unsupported, so the bundled scenarios are not fully replayed. No durable storage, file persistence or CLI command exists; "restart" is tested only as state serialization. Cost deltas, commercial decisions, artifact revisions and external actions are not implemented. Not exposed through `inspect`, which still reports `events_replayed: false`.
+
 ## Relationship to the full plan
 
 M1–M3 have limited initial-state component evidence. There is no event replay, operational coordination loop or completed milestone. M4 and M5 remain pending.
